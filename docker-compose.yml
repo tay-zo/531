@@ -3,6 +3,7 @@ services:
     postgres:
         image: postgres:15
         restart: always
+        container_name: pg
         environment:
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
@@ -10,7 +11,23 @@ services:
           - '5432:5432'
         volumes:
         - db:/var/lib/postgresql/data
+        - /Users/vivek/Developer/cpsc_531/yelp_data_set:/my-data
+
+    cassandra:
+      image: cassandra:4.1
+      restart: always
+      container_name: cass
+      hostname: cassandra
+      networks:
+        - odin
+      volumes:
+        - /Users/vivek/Developer/cpsc_531/yelp_data_set:/my-data
+      
 
 volumes:
   db:
     driver: local
+
+networks:
+  odin:
+    # driver: custom-driver

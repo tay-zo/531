@@ -3,8 +3,8 @@ import logging
 import json
 
 INPUT_FILE = "yelp_data_set/yelp_academic_dataset_tip.json"
-MAX_ROW_COUNT = 500000
-LOG_INTERVAL = 2000
+MAX_ROW_COUNT = 900000
+LOG_INTERVAL = 20000
 
 def insertRow(jsonObj, cur):
     query = "INSERT INTO tip (user_id, business_id, text, date, compliment_count) VALUES (%s,%s,%s,%s,%s)"
@@ -25,7 +25,7 @@ def dropTable(table, cur):
 
 def createTipTable(cur):
     dropTable("tip", cur)
-    command = "CREATE TABLE IF NOT EXISTS tip (user_id VARCHAR(22), business_id VARCHAR(22), text text, date timestamp, compliment_count integer)"
+    command = "CREATE TABLE IF NOT EXISTS tip (uuid text, user_id VARCHAR(22), business_id VARCHAR(22), text text, date timestamp, compliment_count integer)"
     createTable("tip", command, cur)
 
 
